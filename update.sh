@@ -18,9 +18,10 @@ msg() {
 
   local weight="${weights[$1]}"
   local color="${colors[$2]}"
-  local message="${*:3}"
+  # shellcheck disable=SC2124
+  local message="${@:3}"
 
-  echo -e "\033[${weight}${color}${message}\033[0m"
+  echo "\e[${weight}${color}${message}\e[0m"
 }
 
 # pretty print title
