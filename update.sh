@@ -97,6 +97,10 @@ update() {
   msg_step "Update snap packages"
   output_box sudo snap refresh
 
+  msg_heading "Update via yarn"
+  msg_step "Update yarn packages"
+  output_box yarn global upgrade
+
   msg_heading "Update zinit, zinit plugins"
   msg_step "Update zinit"
   output_box zinit self-update
