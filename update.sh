@@ -97,6 +97,7 @@ update() {
     output_box sudo ./aws/install --update
     msg_step "Clean up"
     rm -rf ./aws
+    rm -rf awscliv2.zip
   fi
 
   if [[ -d "$HOME/snap" ]]; then
@@ -122,6 +123,107 @@ update() {
   if [[ -d "$HOME/.config/ulauncher/user-themes/one-dark-ulauncher" ]]; then
     msg_heading "Update ulauncher theme"
     msg_step "Fetch from git"
-    output_box git -C ~/.config/ulauncher/user-themes/one-dark-ulauncher pull origin master
+    output_box git -C ~/.config/ulauncher/user-themes/one-dark-ulauncher \
+      pull origin master
   fi
+
+
+  msg_heading "Update miscellaneous"
+
+
+  # Update global theme
+  msg_step "Update global theme"
+  msg_normal "download theme from git"
+  mute git clone https://github.com/vinceliuice/Qogir-kde.git ./temp-git
+
+  msg_normal "install"
+  cd temp-git || exit
+  output_box ./install.sh
+  cd ..
+
+  msg_normal "clean up"
+  rm -rf temp-git
+
+
+  # Update capitaine-cursors
+  msg_step "Update capitaine-cursors"
+  msg_normal "clone from git"
+  mute git clone https://github.com/keeferrourke/capitaine-cursors.git \
+    ./temp-git
+
+  msg_normal "build capitaine-cursors (takes long time)"
+  cd temp-git || exit
+  mute ./build.sh -t dark
+  cd ..
+
+  msg_normal "copy to cursors directory"
+  rm -rf ~/.icons/capitaine-cursors
+  mkdir -p ~/.icons
+  cp -r temp-git/dist/dark ~/.icons/capitaine-cursors
+
+  msg_normal "clean up"
+  rm -rf temp-git
+
+
+  # Update la capitaine icon theme
+  msg_step "Update la capitaine icon theme"
+  msg_normal "clone from git"
+  mute git clone https://github.com/keeferrourke/la-capitaine-icon-theme.git \
+    ./temp-git
+
+  msg_normal "build la-capitaine-icon-theme"
+  cd temp-git || exit
+  echo y | mute ./configure
+  cd ..
+
+  msg_normal "copy to icon directory"
+  rm -rf ~/.local/share/icons/la-capitaine-icon-theme
+  mkdir -p ~/.local/share/icons
+  cp -r temp-git ~/.local/share/icons/la-capitaine-icon-theme
+
+  msg_normal "clean up"
+  rm -rf temp-git
+
+
+  # Update latte applets
+  msg_step "Update latte applets, kwin scripts"
+  msg_normal "download psifidotos/applet-latte-spacer"
+  mute git clone https://github.com/psifidotos/applet-latte-spacer.git \
+    ./temp-git
+  mute plasmapkg2 -i temp-git
+  rm -rf temp-git
+
+  # psifidotos/applet-window-title
+  msg_normal "download psifidotos/applet-window-title"
+  mute git clone https://github.com/psifidotos/applet-window-title.git \
+    ./temp-git
+  mute plasmapkg2 -i temp-git
+  rm -rf temp-git
+  
+  # varlesh/org.kde.plasma.digitalclock.wl
+  msg_normal "download psifidotos/org.kde.plasma.digitalclock.wl"
+  mute git clone https://github.com/varlesh/org.kde.plasma.digitalclock.wl.git \
+    ./temp-git
+  mute plasmapkg2 -i temp-git
+  rm -rf temp-git
+
+  # psifidotos/kwinscript-window-colors
+  msg_normal "download psifidotos/kwinscript-window-colors"
+  mute git clone https://github.com/psifidotos/kwinscript-window-colors.git \
+    ./temp-git
+  mute plasmapkg2 -i temp-git
+  rm -rf temp-git
+
+
+  # Update applet window appmenu
+  msg_step "Update applet window appmenu"
+  msg_normal "clone from git"
+  mute git clone https://github.com/psifidotos/applet-window-appmenu.git \
+    ./temp-git
+  msg_normal "build and install"
+  cd temp-git || exit
+  output_box silent sh install.sh
+  cd ..
+  msg_normal "clean up"
+  rm -rf temp-git
 }
