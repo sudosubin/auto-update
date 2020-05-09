@@ -81,13 +81,13 @@ update() {
     output_box sudo apt-get -y upgrade
   fi
 
-  if [[ -f "$HOME/.asdf" ]]; then
+  if [[ -d "$HOME/.asdf" ]]; then
       msg_heading "Update asdf-vm"
     msg_step "Fetch from git"
     output_box asdf update --head
   fi
 
-  if [[ -f "$HOME/.aws" ]]; then
+  if [[ -d "$HOME/.aws" ]]; then
     msg_heading "Update AWS Cli v2"
     msg_step "Fetch from online"
     curl -s "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" \
@@ -99,7 +99,7 @@ update() {
     rm -rf ./aws
   fi
 
-  if [[ -f "$HOME/snap" ]]; then
+  if [[ -d "$HOME/snap" ]]; then
     msg_heading "Update via snap"
     msg_step "Update snap packages"
     output_box sudo snap refresh
@@ -111,7 +111,7 @@ update() {
     output_box yarn global upgrade
   fi
 
-  if [[ -f "$HOME/.zinit" ]]; then
+  if [[ -d "$HOME/.zinit" ]]; then
     msg_heading "Update zinit, zinit plugins"
     msg_step "Update zinit"
     output_box zinit self-update
@@ -119,7 +119,7 @@ update() {
     output_box zinit update
   fi
 
-  if [[ -f "$HOME/.config/ulauncher/user-themes/one-dark-ulauncher" ]]; then
+  if [[ -d "$HOME/.config/ulauncher/user-themes/one-dark-ulauncher" ]]; then
     msg_heading "Update ulauncher theme"
     msg_step "Fetch from git"
     output_box git -C ~/.config/ulauncher/user-themes/one-dark-ulauncher pull origin master
