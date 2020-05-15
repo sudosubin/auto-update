@@ -1,75 +1,71 @@
 # pretty print
-msg() {
-  declare -A weights=(
-    ["normal"]="0;"
-    ["bold"]="1;"
-  )
-
-  declare -A colors=(
-    ["black"]="30m"
-    ["red"]="31m"
-    ["green"]="32m"
-    ["yellow"]="33m"
-    ["blue"]="34m"
-    ["purple"]="35m"
-    ["cyan"]="36m"
-    ["white"]="37m"
-  )
-
-  local weight="${weights[$1]}"
-  local color="${colors[$2]}"
-  # shellcheck disable=SC2124
-  local message="${@:3}"
-
-  echo "\e[${weight}${color}${message}\e[0m"
-}
-
-# pretty print title
-msg_title() {
-  msg bold blue "\n$*"
-}
-
-# pretty print heading
-msg_heading() {
-  msg bold green "> $*"
-}
-
-# pretty print step
-msg_step() {
-  msg normal yellow "  - $*"
-}
-
-# print line without style
-msg_normal() {
-  echo "    • $*"
-}
-
-# output box (highlight the area)
-output_box() {
-  echo "============================================================"
-  "$@"
-  echo "============================================================"
-  echo ""
-}
-
-# Silent (stdout)
-silent() {
-  "$@" > /dev/null
-}
-
-# Mute (stdout, stderr)
-mute() {
-  "$@" &> /dev/null
-}
-
-# Get sudo permission at first
-get_sudo() {
-  sudo echo &> /dev/null
-}
-
 
 update() {
-  get_sudo
+  msg() {
+    declare -A weights=(
+      ["normal"]="0;"
+      ["bold"]="1;"
+    )
+
+    declare -A colors=(
+      ["black"]="30m"
+      ["red"]="31m"
+      ["green"]="32m"
+      ["yellow"]="33m"
+      ["blue"]="34m"
+      ["purple"]="35m"
+      ["cyan"]="36m"
+      ["white"]="37m"
+    )
+
+    local weight="${weights[$1]}"
+    local color="${colors[$2]}"
+    # shellcheck disable=SC2124
+    local message="${@:3}"
+
+    echo "\e[${weight}${color}${message}\e[0m"
+  }
+
+  # pretty print title
+  msg_title() {
+    msg bold blue "\n$*"
+  }
+
+  # pretty print heading
+  msg_heading() {
+    msg bold green "> $*"
+  }
+
+  # pretty print step
+  msg_step() {
+    msg normal yellow "  - $*"
+  }
+
+  # print line without style
+  msg_normal() {
+    echo "    • $*"
+  }
+
+  # output box (highlight the area)
+  output_box() {
+    echo "============================================================"
+    "$@"
+    echo "============================================================"
+    echo ""
+  }
+
+  # Silent (stdout)
+  silent() {
+    "$@" > /dev/null
+  }
+
+  # Mute (stdout, stderr)
+  mute() {
+    "$@" &> /dev/null
+  }
+
+  # Get sudo permission at first
+  sudo echo &> /dev/null
 
   msg_title "Start global update"
 
@@ -199,7 +195,7 @@ update() {
     ./temp-git
   mute plasmapkg2 -i temp-git
   rm -rf temp-git
-  
+
   # varlesh/org.kde.plasma.digitalclock.wl
   msg_normal "download psifidotos/org.kde.plasma.digitalclock.wl"
   mute git clone https://github.com/varlesh/org.kde.plasma.digitalclock.wl.git \
@@ -214,7 +210,6 @@ update() {
   mute plasmapkg2 -i temp-git
   rm -rf temp-git
 
-
   # Update applet window appmenu
   msg_step "Update applet window appmenu"
   msg_normal "clone from git"
@@ -226,4 +221,14 @@ update() {
   cd ..
   msg_normal "clean up"
   rm -rf temp-git
+
+  # clean up local functions
+  unfunction msg
+  unfunction msg_title
+  unfunction msg_heading
+  unfunction msg_step
+  unfunction msg_normal
+  unfunction output_box
+  unfunction silent
+  unfunction mute
 }
