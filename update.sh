@@ -223,14 +223,14 @@ update() {
   rm -rf temp-git
 
 
-  # Update st-terminal
+  # Update st terminal
   msg_step "Update st terminal"
   msg_normal "download theme from git"
   mute git clone https://github.com/LukeSmithxyz/st.git ./temp-git
 
   msg_normal "install"
   cd temp-git || exit
-  output_box sudo make install
+  output_box silent sudo make install
   cd ..
 
   msg_normal "clean up"
