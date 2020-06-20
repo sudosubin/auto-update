@@ -81,6 +81,7 @@ update() {
       msg_heading "Update asdf-vm"
     msg_step "Fetch from git"
     output_box asdf update --head
+    output_box asdf plugin update --all
   fi
 
   if [[ -d "$HOME/.aws" ]]; then
