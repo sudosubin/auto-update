@@ -1,4 +1,4 @@
-# pretty print
+#!/bin/zsh
 
 update() {
   msg() {
@@ -125,6 +125,7 @@ update() {
   fi
 
 
+  # Update miscellaneous
   msg_heading "Update miscellaneous"
 
 
@@ -210,6 +211,7 @@ update() {
     ./temp-git
   mute plasmapkg2 -i temp-git
   rm -rf temp-git
+
 
   # Update applet window appmenu
   msg_step "Update applet window appmenu"
