@@ -109,6 +109,12 @@ update() {
     output_box yarn global upgrade
   fi
 
+  if [[ -f "$HOME/.poetry/bin/poetry" ]]; then
+    msg_heading "Update via poetry"
+    msg_step "Update poetry"
+    output_box poetry self update
+  fi
+
   if [[ -d "$HOME/.zinit" ]]; then
     msg_heading "Update zinit, zinit plugins"
     msg_step "Update zinit"
