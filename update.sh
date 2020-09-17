@@ -117,9 +117,7 @@ update() {
 
   if [[ -d "$HOME/.zinit" ]]; then
     msg_heading "Update zinit, zinit plugins"
-    msg_step "Update zinit"
-    output_box zinit self-update
-    msg_step "Update zinit plugins"
+    msg_step "Update zinit and plugins"
     output_box zinit update
   fi
 
