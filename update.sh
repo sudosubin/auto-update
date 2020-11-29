@@ -248,6 +248,31 @@ update() {
   rm -rf temp-git
 
 
+  # Update xft (emoji support)
+  mute git clone https://gitlab.freedesktop.org/xorg/lib/libxft.git ./temp-git
+  wget -qO- \
+    'https://gitlab.freedesktop.org/xorg/lib/libxft/merge_requests/1.patch' \
+    | patch -p1
+
+  msg_normal "install xft"
+  cd temp-git || exit
+  {
+    silent autoreconf --force --install
+    silent ./configure
+    silent make
+    silent sudo make install
+  } | output_box cat
+
+  msg_normal "linking symlink"
+  sudo ln -sfn /usr/local/lib/libXft.so.2.3.3 \
+    /usr/lib/x86_64-linux-gnu/libXft.so.2.3.3
+
+  msg_normal "clean up"
+  sudo ldconfig
+  cd ..
+  rm -rf temp-git
+
+
   # Update st terminal
   msg_step "Update st terminal"
   msg_normal "download theme from git"
