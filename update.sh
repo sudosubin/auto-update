@@ -230,6 +230,19 @@ update() {
   rm -rf temp-git
 
 
+  # Update applet window buttons
+  msg_step "Update applet window buttons"
+  msg_normal "clone from git"
+  mute git clone https://github.com/psifidotos/applet-window-buttons.git \
+    ./temp-git
+  msg_normal "build and install"
+  cd temp-git || exit
+  output_box silent sh install.sh
+  cd ..
+  msg_normal "clean up"
+  rm -rf temp-git
+
+
   # Update st terminal
   msg_step "Update st terminal"
   msg_normal "download theme from git"
