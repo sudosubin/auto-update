@@ -250,12 +250,12 @@ update() {
 
   # Update xft (emoji support)
   mute git clone https://gitlab.freedesktop.org/xorg/lib/libxft.git ./temp-git
-  wget -qO- \
-    'https://gitlab.freedesktop.org/xorg/lib/libxft/merge_requests/1.patch' \
-    | patch -p1
 
   msg_normal "install xft"
   cd temp-git || exit
+  wget -qO- \
+    'https://gitlab.freedesktop.org/xorg/lib/libxft/merge_requests/1.patch' \
+    | patch -p1
   {
     silent autoreconf --force --install
     silent ./configure
