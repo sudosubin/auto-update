@@ -188,6 +188,10 @@ update() {
   mkdir -p ~/.local/share/icons
   cp -r temp-git ~/.local/share/icons/la-capitaine-icon-theme
 
+  # fix inherits theme
+  sed -i -Ee "s|^Inherits=.*|Inherits=breeze|g" \
+    ~/.local/share/icons/la-capitaine-icon-theme/index.theme
+
   msg_normal "clean up"
   rm -rf temp-git
 
