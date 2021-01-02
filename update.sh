@@ -69,19 +69,19 @@ update() {
 
   msg_title "Start global update"
 
+  if [[ -d "$HOME/.cfg" ]]; then
+    msg_heading "Update dotfiles submodule"
+    msg_step "Update submodule"
+    git --git-dir="$HOME/.cfg/" --work-tree="$HOME" \
+      submodule update --remote --recursive
+  fi
+
   if [[ -f "/usr/bin/apt-get" ]]; then
     msg_heading "Update packages via apt-get"
     msg_step "Update packages"
     output_box sudo apt-get update
     msg_step "Upgrade packages"
     output_box sudo apt-get -y upgrade
-  fi
-
-  if [[ -d "$HOME/.asdf" ]]; then
-      msg_heading "Update asdf-vm"
-    msg_step "Fetch from git"
-    output_box asdf update --head
-    output_box asdf plugin update --all
   fi
 
   if [[ -d "$HOME/.aws" ]]; then
