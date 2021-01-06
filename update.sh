@@ -192,6 +192,11 @@ update() {
   sed -i -Ee "s|^Inherits=.*|Inherits=breeze|g" \
     ~/.local/share/icons/la-capitaine-icon-theme/index.theme
 
+  # fix st terminal icon
+  ln -s \
+    "$HOME/.local/share/icons/la-capitaine-icon-theme/apps/scalable/utilities-terminal.svg" \
+    "$HOME/.local/share/icons/la-capitaine-icon-theme/apps/scalable/st.svg"
+
   msg_normal "clean up"
   rm -rf temp-git
 
