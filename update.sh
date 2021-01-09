@@ -152,24 +152,16 @@ update() {
   rm -rf temp-git
 
 
-  # Update capitaine-cursors
-  msg_step "Update capitaine-cursors"
-  msg_normal "clone from git"
-  mute git clone https://github.com/keeferrourke/capitaine-cursors.git \
-    ./temp-git
+  # Update apple-cursor
+  msg_step "Update apple-cursor"
+  curl -sL \
+    https://github.com/ful1e5/apple_cursor/releases/latest/download/macOSBigSur.tar.gz \
+    -o "apple-cursor.tar.gz"
 
-  msg_normal "build capitaine-cursors (takes long time)"
-  cd temp-git || exit
-  mute ./build.sh -t dark
-  cd ..
-
-  msg_normal "copy to cursors directory"
-  rm -rf ~/.icons/capitaine-cursors
-  mkdir -p ~/.icons
-  cp -r temp-git/dist/dark ~/.icons/capitaine-cursors
-
-  msg_normal "clean up"
-  rm -rf temp-git
+  rm -rf ~/.icons/apple-cursor
+  mkdir -p ~/.icons/apple-cursor
+  tar -xf apple-cursor.tar.gz -C ~/.icons/apple-cursor --strip-components=1
+  rm -rf apple-cursor.tar.gz
 
 
   # Update la capitaine icon theme
