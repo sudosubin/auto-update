@@ -285,7 +285,7 @@ update() {
   cd ..
 
   msg_normal "clean up"
-  rm -rf temp-git
+  sudo rm -rf temp-git
 
 
   # clean up local functions
