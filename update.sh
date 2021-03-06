@@ -184,11 +184,6 @@ update() {
   sed -i -Ee "s|^Inherits=.*|Inherits=breeze|g" \
     ~/.local/share/icons/la-capitaine-icon-theme/index.theme
 
-  # fix st terminal icon
-  ln -s \
-    "$HOME/.local/share/icons/la-capitaine-icon-theme/apps/scalable/utilities-terminal.svg" \
-    "$HOME/.local/share/icons/la-capitaine-icon-theme/apps/scalable/st.svg"
-
   msg_normal "clean up"
   rm -rf temp-git
 
@@ -272,20 +267,6 @@ update() {
   sudo ldconfig
   cd ..
   rm -rf temp-git
-
-
-  # Update st terminal
-  msg_step "Update st terminal"
-  msg_normal "download theme from git"
-  mute git clone https://github.com/LukeSmithxyz/st.git ./temp-git
-
-  msg_normal "install"
-  cd temp-git || exit
-  output_box silent sudo make install
-  cd ..
-
-  msg_normal "clean up"
-  sudo rm -rf temp-git
 
 
   # clean up local functions
