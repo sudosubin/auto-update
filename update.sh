@@ -128,12 +128,6 @@ update() {
       pull origin master
   fi
 
-  msg_heading "Update spicetify-cli"
-  msg_step "Executing scripts"
-  {
-    curl -fsSL https://raw.githubusercontent.com/khanhas/spicetify-cli/master/install.sh | sh
-  } | output_box cat
-
   # Update miscellaneous
   msg_heading "Update miscellaneous"
 
