@@ -84,19 +84,6 @@ update() {
     output_box sudo apt-get -y upgrade
   fi
 
-  if [[ -d "$HOME/.aws" ]]; then
-    msg_heading "Update AWS Cli v2"
-    msg_step "Fetch from online"
-    curl -s "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" \
-      -o "awscliv2.zip"
-    mute unzip awscliv2.zip
-    msg_step "Update via script"
-    output_box sudo ./aws/install --update
-    msg_step "Clean up"
-    rm -rf ./aws
-    rm -rf awscliv2.zip
-  fi
-
   if [[ -d "$HOME/snap" ]]; then
     msg_heading "Update via snap"
     msg_step "Update snap packages"
