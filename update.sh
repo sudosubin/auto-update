@@ -90,12 +90,6 @@ update() {
     output_box sudo snap refresh
   fi
 
-  if [[ -f "/usr/bin/yarn" ]]; then
-    msg_heading "Update via yarn"
-    msg_step "Update yarn packages"
-    output_box yarn global upgrade
-  fi
-
   if [[ -d "$HOME/.zinit" ]]; then
     msg_heading "Update zinit, zinit plugins"
     msg_step "Update zinit and plugins"
