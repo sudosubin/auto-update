@@ -84,12 +84,6 @@ update() {
     output_box sudo apt-get -y upgrade
   fi
 
-  if [[ -d "$HOME/snap" ]]; then
-    msg_heading "Update via snap"
-    msg_step "Update snap packages"
-    output_box sudo snap refresh
-  fi
-
   if [[ -d "$HOME/.zinit" ]]; then
     msg_heading "Update zinit, zinit plugins"
     msg_step "Update zinit and plugins"
