@@ -90,22 +90,6 @@ update() {
     output_box zinit update
   fi
 
-  # Update miscellaneous
-  msg_heading "Update miscellaneous"
-
-
-  # Update apple-cursor
-  msg_step "Update apple-cursor"
-  curl -sL \
-    https://github.com/ful1e5/apple_cursor/releases/latest/download/macOSBigSur.tar.gz \
-    -o "apple-cursor.tar.gz"
-
-  rm -rf ~/.icons/apple-cursor
-  mkdir -p ~/.icons/apple-cursor
-  tar -xf apple-cursor.tar.gz -C ~/.icons/apple-cursor --strip-components=1
-  rm -rf apple-cursor.tar.gz
-
-
   # clean up local functions
   unfunction msg
   unfunction msg_title
